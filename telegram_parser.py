@@ -83,8 +83,12 @@ def parse_file(filename, timezone=0):
             if '<' in l: # filter e.g. names from forwarded messages
                 continue
 
+            l = l.split(" via ")[0]
+
             # if the "last name" is not set in TG contact name, sender will end with space
-            if l[-2] != ' ':
+            if l[-1] != '\n':
+                sender = l
+            elif l[-2] != ' ':
                 sender = l[:-1]
             else:
                 sender = l[:-2]
